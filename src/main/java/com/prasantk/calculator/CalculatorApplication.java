@@ -3,6 +3,9 @@ package com.prasantk.calculator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * Main Spring Application.
+ */
 @SpringBootApplication
 public class CalculatorApplication {
 
