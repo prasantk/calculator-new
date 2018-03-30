@@ -21,6 +21,9 @@ apply plugin: 'checkstyle'
 
 version = '0.0.1-SNAPSHOT'
 jar {
+	manifest{
+        attributes ("Fw-Version" : "2.50.00", "${parent.manifestSectionName}")
+    }
 	baseName = 'calculator'
 }
 
