@@ -57,7 +57,10 @@ pipeline {
         }
 
         stage("Docker build") {
-            agent { label 'docker-agent' }
+            agent { 
+                label 'docker-agent' 
+                reuseNode true 
+            }
             steps {
                 sh "docker build -t prasantk/calculator ."
             }
