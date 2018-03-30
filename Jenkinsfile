@@ -1,20 +1,29 @@
 pipeline {
     agent {
-        docker {
-            image "gradle:4.6-jdk8-alpine"
-            label "docker-agent"
-            args "-v /root/.gradle:/home/gradle/.gradle --network jenkins_default"
-        }
+        label 'docker-agent'
     }
     stages {
         
         stage('Compile') {
+            agent {
+                docker {
+                    reuseNode true
+                    image "gradle:4.6-jdk8-alpine"
+                    args "-v /root/.gradle:/home/gradle/.gradle --network jenkins_default"
+                }
+            }
             steps{
                 sh "./gradlew compileJava"
             }
         }
         
         stage('Unit test') {
+            agent {
+                docker {
+                    reuseNode true
+                    image "gradle:4.6-jdk8-alpine"
+                }
+            }
             steps{
                 sh "./gradlew test"
             }
@@ -43,6 +52,7 @@ pipeline {
         // }
 
         stage('SonarQube analysis') {
+            agent { label 'docker-agent' reuseNode true }
             steps {
                 withSonarQubeEnv('SonarQube') {
                     sh "./gradlew sonarqube -Dsonar.projectVersion=${env.BUILD_NUMBER}"
@@ -51,6 +61,12 @@ pipeline {
         }
 
         stage("Package") {
+            agent {
+                docker {
+                    reuseNode true
+                    image "gradle:4.6-jdk8-alpine"
+                }
+            }
             steps {
                 sh "./gradlew build"
             }
