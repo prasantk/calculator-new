@@ -19,9 +19,9 @@ apply plugin: 'org.sonarqube'
 apply plugin: 'jacoco'
 apply plugin: 'checkstyle'
 
+version = '0.0.1-SNAPSHOT'
 jar {
 	baseName = 'calculator'
-	version = '0.0.1-SNAPSHOT'
 }
 
 sourceCompatibility = 1.8
