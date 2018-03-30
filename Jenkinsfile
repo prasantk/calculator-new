@@ -3,7 +3,6 @@ pipeline {
         docker {
             image "gradle:4.6-jdk8-alpine"
             label "docker-agent"
-            args "-v /root/.gradle:/home/gradle/.gradle"
         }
     }
     stages {
