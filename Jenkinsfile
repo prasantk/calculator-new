@@ -57,6 +57,7 @@ pipeline {
         }
 
         stage("Docker build") {
+            agent 'docker-agent'
             steps {
                 sh "docker build -t prasantk/calculator ."
             }
