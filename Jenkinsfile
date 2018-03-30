@@ -20,25 +20,33 @@ pipeline {
             }
         }
         
-        stage("Code coverage") {
-            steps {
-                sh "./gradlew jacocoTestReport"
-                publishHTML (target: [
-                    reportDir: 'build/reports/jacoco/test/html',
-                    reportFiles: 'index.html',
-                    reportName: "JaCoCo Report" ])
-                sh "./gradlew jacocoTestCoverageVerification"
-            }
-        }
+        // stage("Code coverage") {
+        //     steps {
+        //         sh "./gradlew jacocoTestReport"
+        //         publishHTML (target: [
+        //             reportDir: 'build/reports/jacoco/test/html',
+        //             reportFiles: 'index.html',
+        //             reportName: "JaCoCo Report" ])
+        //         sh "./gradlew jacocoTestCoverageVerification"
+        //     }
+        // }
 
-        stage("Static code analysis") {
+        // stage("Static code analysis") {
+        //     steps {
+        //         sh "./gradlew checkstyleMain"
+        //         publishHTML (target: [
+        //             reportDir: 'build/reports/checkstyle/',
+        //             reportFiles: 'main.html',
+        //             reportName: "Checkstyle Report"
+        //         ])
+        //     }
+        // }
+
+        stage('SonarQube analysis') {
             steps {
-                sh "./gradlew checkstyleMain"
-                publishHTML (target: [
-                    reportDir: 'build/reports/checkstyle/',
-                    reportFiles: 'main.html',
-                    reportName: "Checkstyle Report"
-                ])
+                withSonarQubeEnv('SonarQube Server') {
+                    sh "./gradlew sonarqube -Dsonar.projectName=calculator -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=calc -Dsonar.sources=src/main/ -Dsonar.tests=src/test/ -Dsonar.language=java"
+                }
             }
         }
     }
