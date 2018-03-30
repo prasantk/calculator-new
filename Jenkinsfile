@@ -52,7 +52,6 @@ pipeline {
         // }
 
         stage('SonarQube analysis') {
-            agent { label 'docker-agent' reuseNode true }
             steps {
                 withSonarQubeEnv('SonarQube') {
                     sh "./gradlew sonarqube -Dsonar.projectVersion=${env.BUILD_NUMBER}"
@@ -73,7 +72,6 @@ pipeline {
         }
 
         stage("Docker build") {
-            agent { label 'docker-agent' reuseNode true }
             steps {
                 sh "docker build -t prasantk/calculator ."
             }
