@@ -45,7 +45,7 @@ pipeline {
         stage('SonarQube analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh "./gradlew sonarqube -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.language=java"
+                    sh "./gradlew sonarqube -Dsonar.projectVersion=${env.BUILD_NUMBER}"
                 }
             }
         }
