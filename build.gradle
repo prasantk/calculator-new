@@ -45,6 +45,11 @@ jacocoTestCoverageVerification {
 
 sonarqube {
     properties {
+		property "sonar.projectName", "Gradle :: Calculator Project"
+		property "sonar.projectKey", "gradle:calculator"
+		property "sonar.sources", "src/main/"
+		property "sonar.tests", "src/test/"
+		property "sonar.language", "java"
         property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
     }
 }
