@@ -56,3 +56,7 @@ sonarqube {
         property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
     }
 }
+
+bootRepackage {
+    executable = true
+}
