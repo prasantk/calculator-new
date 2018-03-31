@@ -2,6 +2,10 @@ pipeline {
     agent {
         label 'docker-agent'
     }
+    environment {
+        shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+        tag = "${env.BUILD_NUMBER}_${shortCommit}"
+    }
     stages {
         
         stage('Compile') {
@@ -83,6 +87,21 @@ pipeline {
         stage("Docker build") {
             steps {
                 sh "docker build -t prasantk/calculator ."
+            }
+        }
+
+        stage("Docker login") {
+            steps {
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub',
+                                usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+                    sh "docker login --username $USERNAME --password $PASSWORD"
+                }
+            }
+        }
+
+        stage("Docker push") {
+            steps {
+                sh "docker push prasantk/calculator:${env.tag}"
             }
         }
     }
