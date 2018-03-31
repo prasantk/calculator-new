@@ -66,7 +66,7 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh "./gradlew sonarqube -Dsonar.projectVersion=${env.BUILD_NUMBER}"
+                    sh "./gradlew sonarqube -Dsonar.projectVersion=${env.tag}"
                 }
             }
         }
