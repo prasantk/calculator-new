@@ -86,7 +86,7 @@ pipeline {
 
         stage("Docker build") {
             steps {
-                sh "docker build -t prasantk/calculator ."
+                sh "docker build -t prasantk/calculator:${env.tag} ."
             }
         }
 
