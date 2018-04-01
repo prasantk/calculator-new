@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.0.0.RELEASE'
+		springBootVersion = '1.5.1.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -35,11 +35,11 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-data-jpa")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 
-	compile "org.springframework.data:spring-data-redis"
-	compile "redis.clients:jedis"
+	compile "org.springframework.data:spring-data-redis:1.8.0.RELEASE"
+	compile "redis.clients:jedis:2.9.0"
 
-	testCompile("info.cukes:cucumber-java")
-	testCompile("info.cukes:cucumber-junit")
+	testCompile("info.cukes:cucumber-java:1.2.4")
+	testCompile("info.cukes:cucumber-junit:1.2.4")
 }
 
 // jacocoTestCoverageVerification {
