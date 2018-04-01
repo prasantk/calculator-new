@@ -30,17 +30,26 @@ repositories {
 	mavenCentral()
 }
 
-
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-web')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
-
-	compile "org.springframework.data:spring-data-redis:1.8.0.RELEASE"
-	compile "redis.clients:jedis:2.9.0"
+    compile('org.springframework.data:spring-data-redis:2.0.2.RELEASE')
+    compile('redis.clients:jedis:2.9.0')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 
 	testCompile("info.cukes:cucumber-java:1.2.4")
 	testCompile("info.cukes:cucumber-junit:1.2.4")
 }
+
+// dependencies {
+// 	compile('org.springframework.boot:spring-boot-starter-web')
+// 	testCompile('org.springframework.boot:spring-boot-starter-test')
+
+// 	compile "org.springframework.data:spring-data-redis:1.8.0.RELEASE"
+// 	compile "redis.clients:jedis:2.9.0"
+
+// 	testCompile("info.cukes:cucumber-java:1.2.4")
+// 	testCompile("info.cukes:cucumber-junit:1.2.4")
+// }
 
 jacocoTestCoverageVerification {
      violationRules {
@@ -61,13 +70,4 @@ sonarqube {
 		property "sonar.language", "java"
         property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
     }
-}
-
-task acceptanceTest(type: Test) {
-	include '**/acceptance/**'
-	systemProperties System.getProperties()
-}
-
-test {
-	exclude '**/acceptance/**'
 }
