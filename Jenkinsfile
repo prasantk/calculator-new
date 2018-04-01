@@ -4,7 +4,7 @@ pipeline {
     }
     environment {
         shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
-        tag = "${env.BUILD_NUMBER}_${shortCommit}"
+        TAG = "${env.BUILD_NUMBER}_${shortCommit}"
     }
     stages {
         
@@ -66,7 +66,7 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh "./gradlew sonarqube -Dsonar.projectVersion=${env.tag}"
+                    sh "./gradlew sonarqube -Dsonar.projectVersion=${env.TAG}"
                 }
             }
         }
@@ -86,7 +86,7 @@ pipeline {
 
         stage("Docker build") {
             steps {
-                sh "docker build -t prasantk/calculator:${env.tag} ."
+                sh "docker build -t prasantk/calculator:${env.TAG} ."
             }
         }
 
@@ -101,7 +101,24 @@ pipeline {
 
         stage("Docker push") {
             steps {
-                sh "docker push prasantk/calculator:${env.tag}"
+                sh "docker push prasantk/calculator:${env.TAG}"
+            }
+        }
+
+        stage("Deploy to staging") {
+            steps {
+                sh "docker-compose -p staging up -d"
+            }
+        }
+
+        stage("Acceptance test") {
+            steps {
+                sh "./acceptance_test.sh 10.0.15.40"
+            }
+            post {
+                always {
+                    sh "docker-compose -p staging down"
+                }
             }
         }
     }

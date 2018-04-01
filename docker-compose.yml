@@ -1,0 +1,8 @@
+version: "3"
+services:
+  calculator:
+    image: prasantk/calculator:${TAG}
+    ports:
+      - 8080
+  redis:
+    image: redis:4-alpine

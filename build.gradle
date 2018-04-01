@@ -37,6 +37,9 @@ dependencies {
 
 	compile "org.springframework.data:spring-data-redis:1.8.0.RELEASE"
 	compile "redis.clients:jedis:2.9.0"
+
+	testCompile("info.cukes:cucumber-java:1.2.4")
+	testCompile("info.cukes:cucumber-junit:1.2.4")
 }
 
 jacocoTestCoverageVerification {
@@ -58,4 +61,13 @@ sonarqube {
 		property "sonar.language", "java"
         property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
     }
+}
+
+task acceptanceTest(type: Test) {
+	include '**/acceptance/**'
+	systemProperties System.getProperties()
+}
+
+test {
+	exclude '**/acceptance/**'
 }
