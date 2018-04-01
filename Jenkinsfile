@@ -115,11 +115,11 @@ pipeline {
             steps {
                 sh "./acceptance_test.sh 10.0.15.40"
             }
-            post {
-                always {
-                    sh "docker-compose -p staging down"
-                }
-            }
+            // post {
+            //     always {
+            //         sh "docker-compose -p staging down"
+            //     }
+            // }
         }
     }
     
