@@ -72,7 +72,3 @@ test {
 	exclude '**/acceptance/**'
 	exclude '**/smoke/**'
 }
-
-bootRepackage {
-       executable = true
-}
