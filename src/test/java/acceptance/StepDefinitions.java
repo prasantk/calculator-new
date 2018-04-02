@@ -9,8 +9,7 @@ import static org.junit.Assert.assertEquals;
 
 /** Steps definitions for calculator.acceptance */
 public class StepDefinitions {
-    // private String server = System.getProperty("calculator.url");
-    private String server = "staging.calculator.local";
+    private String server = System.getProperty("calculator.url");
 
     private RestTemplate restTemplate = new RestTemplate();
 
@@ -26,9 +25,7 @@ public class StepDefinitions {
 
     @When("^the calculator sums them$")
     public void the_calculator_sums_them() throws Throwable {
-        System.out.println("Prasantk--");
         String url = String.format("%s/sum?a=%s&b=%s", server, a, b);
-        System.out.println("Prasant--"+url);
         result = restTemplate.getForObject(url, String.class);
     }
 

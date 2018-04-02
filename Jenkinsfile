@@ -121,11 +121,11 @@ pipeline {
                 sleep 30
                 sh "./acceptance_test.sh staging.calculator.local"
             }
-            // post {
-            //     always {
-            //         sh "docker-compose -p staging down"
-            //     }
-            // }
+            post {
+                always {
+                    sh "docker-compose -p staging down"
+                }
+            }
         }
 
         stage("Release") {
