@@ -118,8 +118,13 @@ pipeline {
 
         stage("Acceptance test") {
             steps {
-                sleep 30
+                // sleep 30
                 sh "./acceptance_test.sh staging.calculator.local"
+                publishHTML (target: [
+                    reportDir: 'build/reports/tests/acceptanceTest/',
+                    reportFiles: 'index.html',
+                    reportName: "Acceptance Test Report"
+                ])
             }
             post {
                 always {
@@ -136,7 +141,7 @@ pipeline {
 
         stage("Smoke test") {
             steps {
-                sleep 30
+                // sleep 30
                 sh "./smoke_test.sh prod.calculator.local"
             }
         }
