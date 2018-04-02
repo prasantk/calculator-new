@@ -107,13 +107,14 @@ pipeline {
 
         stage("Deploy to staging") {
             steps {
-                sh "docker-compose -p staging up -d"
+                sh "URL=staging.calculator.local docker-compose -p staging up -d"
             }
         }
 
         stage("Acceptance test") {
             steps {
-                sh "./acceptance_test.sh 10.0.15.40"
+                sleep 30
+                sh "./acceptance_test.sh staging.calculator.local"
             }
             post {
                 always {
@@ -124,13 +125,14 @@ pipeline {
 
         stage("Release") {
             steps {
-                sh "docker-compose -p production up -d"
+                sh "URL=prod.calculator.local docker-compose -p production up -d"
             }
         }
 
         stage("Smoke test") {
             steps {
-                sh "./smoke_test.sh 10.0.15.40"
+                sleep 30
+                sh "./smoke_test.sh prod.calculator.local"
             }
         }
     }
