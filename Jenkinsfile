@@ -120,14 +120,14 @@ pipeline {
             steps {
                 // sleep 30
                 sh "./acceptance_test.sh staging.calculator.local"
-                publishHTML (target: [
-                    reportDir: 'build/reports/tests/acceptanceTest/',
-                    reportFiles: 'index.html',
-                    reportName: "Acceptance Test Report"
-                ])
             }
             post {
                 always {
+                    publishHTML (target: [
+                        reportDir: 'build/reports/tests/acceptanceTest/',
+                        reportFiles: 'index.html',
+                        reportName: "Acceptance Test Report"
+                    ])
                     sh "docker-compose -p staging down"
                 }
             }
