@@ -26,7 +26,9 @@ public class StepDefinitions {
 
     @When("^the calculator sums them$")
     public void the_calculator_sums_them() throws Throwable {
+        System.out.println("Prasantk--");
         String url = String.format("%s/sum?a=%s&b=%s", server, a, b);
+        System.out.println("Prasant--",url);
         result = restTemplate.getForObject(url, String.class);
     }
 
