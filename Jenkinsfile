@@ -6,7 +6,7 @@ pipeline {
     triggers {
         pollSCM('* * * * *')
     }
-    
+
     environment {
         shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
         TAG = "${env.BUILD_NUMBER}_${shortCommit}"
@@ -121,11 +121,11 @@ pipeline {
                 sleep 30
                 sh "./acceptance_test.sh staging.calculator.local"
             }
-            post {
-                always {
-                    sh "docker-compose -p staging down"
-                }
-            }
+            // post {
+            //     always {
+            //         sh "docker-compose -p staging down"
+            //     }
+            // }
         }
 
         stage("Release") {
