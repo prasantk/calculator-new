@@ -121,6 +121,18 @@ pipeline {
                 }
             }
         }
+
+        stage("Release") {
+            steps {
+                sh "docker-compose -p production up -d"
+            }
+        }
+
+        stage("Smoke test") {
+            steps {
+                sh "./smoke_test.sh 10.0.15.40"
+            }
+        }
     }
     
     post {
