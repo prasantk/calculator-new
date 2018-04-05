@@ -136,6 +136,7 @@ pipeline {
 
         stage("Release") {
             steps {
+                input 'Do you approve the release?'
                 sh "URL=prod.calculator.local docker-compose -p production up -d"
             }
         }
